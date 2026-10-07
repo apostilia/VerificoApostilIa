@@ -10,38 +10,60 @@
   <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const persona = urlParams.get('p') || 'jesus';
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. Obtener la persona desde el parámetro ?p= de la URL generada por el QR
+      const urlParams = new URLSearchParams(window.location.search);
+      const persona = urlParams.get('p') || 'jesus';
 
-    const script = document.createElement('script');
-    // Previene la caché del navegador añadiendo un timestamp
-    script.src = './abc_files/' + persona + '.js?v=' + new Date().getTime();
+      // 2. Ruta al archivo JSON con marca de tiempo para evitar caché en la cámara/navegador del celular
+      const jsonUrl = './abc_files/' + persona + '.json?v=' + new Date().getTime();
 
-    script.onload = function() {
-      if (typeof CONFIG_DATOS !== 'undefined') {
-        document.getElementById("var-tituloDocumento").textContent = CONFIG_DATOS.tituloDocumento;
-        document.getElementById("var-solicitante").textContent = CONFIG_DATOS.solicitante;
-        document.getElementById("var-numDocumento").textContent = CONFIG_DATOS.numDocumento;
-        document.getElementById("var-fechaNacimiento").textContent = CONFIG_DATOS.fechaNacimiento;
-        document.getElementById("var-p1").textContent = CONFIG_DATOS.p1_pais;
-        document.getElementById("var-p2").textContent = CONFIG_DATOS.p2_firmadoPor;
-        document.getElementById("var-p3").textContent = CONFIG_DATOS.p3_calidadDe;
-        document.getElementById("var-p4").textContent = CONFIG_DATOS.p4_selloDe;
-        document.getElementById("var-p5").textContent = CONFIG_DATOS.p5_lugar;
-        document.getElementById("var-p6").textContent = CONFIG_DATOS.p6_fecha;
-        document.getElementById("var-p7").textContent = CONFIG_DATOS.p7_por;
-        document.getElementById("var-p8").textContent = CONFIG_DATOS.p8_numero;
-        document.getElementById("var-p9").textContent = CONFIG_DATOS.p9_selloTimbre;
-        document.getElementById("var-p10").textContent = CONFIG_DATOS.p10_firma;
-        document.getElementById("var-codigoSeguridad").textContent = CONFIG_DATOS.codigoSeguridad;
+      // 3. Carga limpia mediante fetch
+      fetch(jsonUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('No se encontró la información para: ' + persona);
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (document.getElementById("var-tituloDocumento")) document.getElementById("var-tituloDocumento").textContent = data.tituloDocumento || '';
+          if (document.getElementById("var-solicitante")) document.getElementById("var-solicitante").textContent = data.solicitante || '';
+          if (document.getElementById("var-numDocumento")) document.getElementById("var-numDocumento").textContent = data.numDocumento || '';
+          if (document.getElementById("var-fechaNacimiento")) document.getElementById("var-fechaNacimiento").textContent = data.fechaNacimiento || '';
+          if (document.getElementById("var-p1")) document.getElementById("var-p1").textContent = data.p1_pais || '';
+          if (document.getElementById("var-p2")) document.getElementById("var-p2").textContent = data.p2_firmadoPor || '';
+          if (document.getElementById("var-p3")) document.getElementById("var-p3").textContent = data.p3_calidadDe || '';
+          if (document.getElementById("var-p4")) document.getElementById("var-p4").textContent = data.p4_selloDe || '';
+          if (document.getElementById("var-p5")) document.getElementById("var-p5").textContent = data.p5_lugar || '';
+          if (document.getElementById("var-p6")) document.getElementById("var-p6").textContent = data.p6_fecha || '';
+          if (document.getElementById("var-p7")) document.getElementById("var-p7").textContent = data.p7_por || '';
+          if (document.getElementById("var-p8")) document.getElementById("var-p8").textContent = data.p8_numero || '';
+          if (document.getElementById("var-p9")) document.getElementById("var-p9").textContent = data.p9_selloTimbre || '';
+          if (document.getElementById("var-p10")) document.getElementById("var-p10").textContent = data.p10_firma || '';
+          if (document.getElementById("var-codigoSeguridad")) document.getElementById("var-codigoSeguridad").textContent = data.codigoSeguridad || '';
+
+          // Guardar el nombre del PDF para la descarga
+          window.NOMBRE_PDF_ACTUAL = data.nombrePDF;
+        })
+        .catch(error => {
+          console.error("Error al cargar los datos:", error);
+        });
+    });
+
+    // Función para descargar el PDF asignado
+    function descargarPDF() {
+      if (window.NOMBRE_PDF_ACTUAL) {
+        const a = document.createElement("a");
+        a.href = window.NOMBRE_PDF_ACTUAL;
+        a.download = window.NOMBRE_PDF_ACTUAL.split("/").pop();
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert("No se encontró ningún PDF para descargar.");
       }
-    };
-
-    script.onerror = function() {
-      console.error("No se pudo cargar el archivo JS para:", persona);
-    };
-
-    document.head.appendChild(script);
+    }
   </script>
 
   <script src="./abc_files/api.js.descarga"></script>
@@ -133,143 +155,4 @@
                     </section>
                   </article>
                   <article class="col-12">
-                    <section class="-outline-slate-200 -relative -bg-white -rounded-md lg:-px-4 lg:-py-4 -p-4 -outline -outline-2 -outline-slate-200 -shadow-sm -shadow-slate-300">
-                      <section class="row q-col-gutter-xs">
-                        <article class="col-12">
-                          <article class="-text-center">
-                            <div class="q-img q-img--menu md:-w-2/5 -w-9/12 -mb-4" role="img">
-                              <div style="padding-bottom: 64.8094%;"></div>
-                              <div class="q-img__container absolute-full">
-                                <img class="q-img__image q-img__image--with-transition q-img__image--loaded" loading="lazy" fetchpriority="auto" aria-hidden="true" draggable="false" src="./abc_files/escudo_bolivia.446ac8d8.jpg" style="object-fit: cover; object-position: 50% 50%;">
-                              </div>
-                              <div class="q-img__content absolute-full q-anchor--skip"></div>
-                            </div>
-                          </article>
-                          <section class="-items-center">
-                            <article class="-py-0 -px-0 -text-left col-sm-7 col-12 q-gutter-xs">
-                              <div class="-text-xs -text-color -font-normal">Esta Apostilla certifica únicamente la autenticidad de la firma, la calidad en que el signatario del documento haya actuado y, en su caso, la identidad del sello o timbre del que el documento público esté revestid (Esta Apostilla no certifica el contenido del documento para el cual se expidió)</div>
-                            </article>
-                          </section>
-                          <section class="-items-center">
-                            <article class="-py-0 -px-0 -text-left col-sm-7 col-12 q-gutter-xs">
-                              <div class="-text-xs -text-color -font-normal">[Esta Apostilla se puede verificar en la dirección siguiente: https://apostilla.rree.gob.bo/.]</div>
-                            </article>
-                          </section>
-                        </article>
-                        <article class="col-12 -whitespace-pre-line">
-                          <section class="row q-col-gutter-xs">
-                            <article class="col-12 -text-center">
-                              <div class="-text-lg -text-sky-600 -font-medium">Apostille</div>
-                              <div class="-text-sm -text-sky-600 -font-medium">(Convention de La Haye du 5 octobre de 1961)</div>
-                            </article>
-                            <article class="col-md-6 col-6">
-                              <div class="-text-sm -font-medium">1. País: Country/Pays:</div>
-                            </article>
-                            <article class="col-md-6 col-6" id="var-p1"></article>
-                          </section>
-                        </article>
-                        <article class="col-12 -whitespace-pre-line">
-                          <section class="row q-col-gutter-md">
-                            <article class="col-12 -text-center">
-                              <div class="-text-lg -text-sky-600 -font-medium">El presente documento público</div>
-                              <div class="-text-sm -text-sky-600 -font-medium">This public document / Le présent acte public</div>
-                            </article>
-                            <article class="col-md-6 col-12">
-                              <div class="-text-sm -font-medium">2. ha sido firmado por: has been signed by a été signé par:</div>
-                            </article>
-                            <article class="col-md-6 col-12" id="var-p2"></article>
-                            <article class="col-md-6 col-12">
-                              <div class="-text-sm -font-medium">3. quien actúa en calidad de: acting in the capacity of agissant en qualité de:</div>
-                            </article>
-                            <article class="col-md-6 col-12" id="var-p3"></article>
-                            <article class="col-md-6 col-12">
-                              <div class="-text-sm -font-medium">4. y está revestido del sello / timbre de: bears the seal / stamp of: est revêtu du sceau / timbre de:</div>
-                            </article>
-                            <article class="col-md-6 col-12" id="var-p4"></article>
-                          </section>
-                        </article>
-                        <article class="col-12 -whitespace-pre-line">
-                          <section class="row q-col-gutter-md">
-                            <article class="col-12 -text-center">
-                              <div class="-text-lg -text-sky-600 -font-medium">Certificado</div>
-                              <div class="-text-sm -text-sky-600 -font-medium">Certified / Attesté</div>
-                            </article>
-                            <article class="col-md-3 col-6">
-                              <div class="-text-sm -font-medium">5. en: at/à:</div>
-                            </article>
-                            <article class="col-md-3 col-6" id="var-p5"></article>
-                            <article class="col-md-3 col-6">
-                              <div class="-text-sm -font-medium">6. el día: the/le:</div>
-                            </article>
-                            <article class="col-md-3 col-6" id="var-p6"></article>
-                            <article class="col-md-6 col-6">
-                              <div class="-text-sm -font-medium">7. por: by/ par:</div>
-                            </article>
-                            <article class="col-md-6 col-6" id="var-p7"></article>
-                            <article class="col-md-6 col-6">
-                              <div class="-text-sm -font-medium">8. bajo el número: N.º / sous n°:</div>
-                            </article>
-                            <article class="col-md-6 col-6" id="var-p8"></article>
-                            <article class="col-md-6 col-6">
-                              <div class="-text-sm -font-medium">9. sello / Timbre: Seal/ stamp:</div>
-                            </article>
-                            <article class="col-md-6 col-6" id="var-p9"></article>
-                            <article class="col-md-6 col-6">
-                              <div class="-text-sm -font-medium">10. Firma: Signature:</div>
-                            </article>
-                            <article class="col-md-6 col-6" id="var-p10"></article>
-                            <article class="col-12">
-                              <section class="row q-col-gutter-xs items-center">
-                                <article class="col-12">
-                                  <section class="row q-col-gutter-xs">
-                                    <article class="col-md-6 col-12">
-                                      <div class="-text-sm -font-medium">CÓDIGO DE SEGURIDAD ALFANUMÉRICO:</div>
-                                    </article>
-                                    <article class="col-md-6 col-12" id="var-codigoSeguridad"></article>
-                                  </section>
-                                </article>
-                                <article class="col-12 flex justify-end" style="padding-top: 10px;">
-                                  <div style="width: 180px; height: 90px; display: flex; justify-content: flex-end; align-items: center;">
-                                    <img src="./abc_files/mre_dorado.110579ac.png" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="Sello MRE">
-                                  </div>
-                                </article>
-                              </section>
-                            </article>
-                          </section>
-                        </article>
-                      </section>
-                    </section>
-                  </article>
-                  <article class="col-12 -text-center">
-                    <section class="-items-center">
-                      <article class="-py-0 -px-0 -text-left col-sm-7 col-12 -text-center q-gutter-xs">
-                        <button onclick="descargarPDF()" class="q-btn q-btn-item non-selectable no-outline q-btn--unelevated q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase -px-4 -text-base -rounded-md -bg-primary -text-white" tabindex="0" type="button">
-                          <span class="q-focus-helper"></span>
-                          <span class="q-btn__content text-center col items-center q-anchor--skip justify-center row">Descargar apostilla PDF</span>
-                        </button>
-                      </article>
-                    </section>
-                  </article>
-                </section>
-              </section>
-            </article>
-          </section>
-        </main>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function descargarPDF() {
-      if (typeof CONFIG_DATOS !== 'undefined' && CONFIG_DATOS.nombrePDF) {
-        const a = document.createElement("a");
-        a.href = CONFIG_DATOS.nombrePDF;
-        a.download = CONFIG_DATOS.nombrePDF.split("/").pop();
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-    }
-  </script>
-</body>
-</html>
+                    <section class="-outline-slate-200 -relative -bg-white -rounded-md lg:-px-4 lg:-py-4 -p-4 -outline -outline-2 -outline
