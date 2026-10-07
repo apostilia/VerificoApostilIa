@@ -1,4 +1,4 @@
-const CONFIG_DATOS = {
+window.CONFIG_DATOS = {
   // Título principal del documento
   tituloDocumento: "Certificado de antecedentes penales (CONSEJO DE LA MAGISTRATURA)",
 
