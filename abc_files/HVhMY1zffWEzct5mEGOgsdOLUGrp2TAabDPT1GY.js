@@ -1,16 +1,12 @@
-const CONFIG_DATOS = {
-  // Título principal del documento
-  tituloDocumento: "Autorizacion de Viaje al Exterior (TRIBUNAL DEPARTAMENTAL DE JUSTICIA)",
+window.DATOS_PERSONAS = window.DATOS_PERSONAS || {};
 
-  // Datos del Archivo PDF a descargar
+// Registrar el objeto en el mapa global
+window.DATOS_PERSONAS['HVhMY1zffWEzct5mEGOgsdOLUGrp2TAabDPT1GY'] = {
+  tituloDocumento: "Certificado de antecedentes penales (CONSEJO DE LA MAGISTRATURA)",
   nombrePDF: "35254661.pdf",
-
-  // Datos del Solicitante
   solicitante: "TALITA APAZA CESPEDES",
   numDocumento: "13243166",
   fechaNacimiento: "24/10/2012",
-
-  // Campos legales de la Apostilla (Puntos 1 al 10)
   p1_pais: "Bolivia",
   p2_firmadoPor: "DR. ALDO ISMAEL QUEZADA CERRUTI",
   p3_calidadDe: "PRESIDENTE",
@@ -21,7 +17,5 @@ const CONFIG_DATOS = {
   p8_numero: "1583693",
   p9_selloTimbre: "",
   p10_firma: "FIRMADO DIGITALMENTE",
-  
-  // Código de Seguridad
   codigoSeguridad: "PJ1EW5FZPT"
 };
