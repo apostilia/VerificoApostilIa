@@ -17,6 +17,5 @@ window.DATOS_PERSONAS['OJmLP1sijPTrav6kAITgsaZQTWfk2ZZkaSTE6YI'] = {
   p8_numero: "1583758",
   p9_selloTimbre: "",
   p10_firma: "FIRMADO DIGITALMENTE",
-  codigoSeguridad: "MY9QN8XDJH
-"
+  codigoSeguridad: "MY9QN8XDJH"
 };
