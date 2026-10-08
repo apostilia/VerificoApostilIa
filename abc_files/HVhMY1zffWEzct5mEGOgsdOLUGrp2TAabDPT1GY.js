@@ -2,7 +2,7 @@ window.DATOS_PERSONAS = window.DATOS_PERSONAS || {};
 
 // Registrar el objeto en el mapa global
 window.DATOS_PERSONAS['HVhMY1zffWEzct5mEGOgsdOLUGrp2TAabDPT1GY'] = {
-  tituloDocumento: "Certificado de antecedentes penales (CONSEJO DE LA MAGISTRATURA)",
+  tituloDocumento: "Autorizacion de Viaje al Exterior (TRIBUNAL DEPARTAMENTAL DE JUSTICIA)",
   nombrePDF: "35254661.pdf",
   solicitante: "TALITA APAZA CESPEDES",
   numDocumento: "13243166",
