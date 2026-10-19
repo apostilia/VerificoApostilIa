@@ -1,12 +1,12 @@
 window.DATOS_PERSONAS = window.DATOS_PERSONAS || {};
 
 // Registrar el objeto en el mapa global
-window.DATOS_PERSONAS[''] = {
+window.DATOS_PERSONAS['NHqVV1ngzXDmtd8uUTZwrySPWCpp2GGbcKUH3HB'] = {
   tituloDocumento: "Autorizacion de Viaje al Exterior (TRIBUNAL DEPARTAMENTAL DE JUSTICIA)",
-  nombrePDF: ".pdf",
-  solicitante: "",
-  numDocumento: "",
-  fechaNacimiento: "",
+  nombrePDF: "34421648.pdf",
+  solicitante: "BRUNO ZELAYA CALIZAYA",
+  numDocumento: "17176378",
+  fechaNacimiento: "18/02/2022",
   p1_pais: "Bolivia",
   p2_firmadoPor: "DR. ALDO ISMAEL QUEZADA CERRUTI",
   p3_calidadDe: "PRESIDENTE",
@@ -14,8 +14,8 @@ window.DATOS_PERSONAS[''] = {
   p5_lugar: "SANTA CRUZ",
   p6_fecha: "19/10/2026",
   p7_por: "ANA PAOLA GUZMAN FLORES",
-  p8_numero: "1583767",
+  p8_numero: "1583776",
   p9_selloTimbre: "",
   p10_firma: "FIRMADO DIGITALMENTE",
-  codigoSeguridad: "VF1JR1MGHR"
+  codigoSeguridad: "OE4PA5RIEW"
 };
